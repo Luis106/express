@@ -3,7 +3,6 @@ const router = express.Router();
 
 const {
     minsertOne,
-    minsertMany,
     mFindAll,
     mUpdateOne,
     mDeleteOne
@@ -16,7 +15,7 @@ const  {
 //http://localhost:3000/Task
 router.post('/create', minsertOne);
 router.get('/', mFindAll);
-router.post('/update', mUpdateOne);
-router.post('/delete', mDeleteOne);
+router.put('/update', mUpdateOne);
+router.delete('/delete', mDeleteOne);
 
 module.exports = router;
