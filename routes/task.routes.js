@@ -13,9 +13,9 @@ const  {
 } = require("./controllers/auth.controller.js")
 
 //http://localhost:3000/Task
-router.post('/create', minsertOne);
-router.get('/', mFindAll);
-router.put('/update', mUpdateOne);
-router.delete('/delete', mDeleteOne);
+router.post('/create',verifyToken, minsertOne);
+router.get('/',verifyToken, mFindAll);
+router.put('/update',verifyToken, mUpdateOne);
+router.delete('/delete',verifyToken, mDeleteOne);
 
 module.exports = router;

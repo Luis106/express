@@ -6,6 +6,10 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require("cors");
+var http = require("http");
+
+
+
 
 ///Rutas
 var indexRouter = require('./routes/index');
@@ -14,6 +18,7 @@ var operationRouter = require('./routes/operator.js');
 var pokemonRouter = require("./routes/pokemon.routes.js");
 var Taskrouter = require("./routes/task.routes.js");
 var authRouter = require("./routes/auth.routes.js");
+
 
 
 var app = express();
@@ -30,10 +35,29 @@ mongoose.connection.on("open", function(){
     console.log("MongoDB connection opened");
 });
 
-//const redis = require("redis")
-//global.client  = redis.createClient();
 
-//const util = require("util")
+///Inicializar Redis
+try {
+  const redis = require("redis")
+  client  = redis.createClient();
+  
+  const util = require("util")
+  client.get = util.promisify(client.get); 
+  console.log("Redis conectado")
+  
+} catch (error) {
+  console.log("Redis no conectado")
+}
+
+///Configurar socket.io
+const server = http.createServer(app)
+const {Server} = require("socket.io");
+const io = new Server(server)
+
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  console.log(socket)
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

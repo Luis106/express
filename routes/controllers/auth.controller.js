@@ -8,7 +8,7 @@ async function getjwtToken(req, res){
 
     const payload = {
         userid: "wasdasd",
-        exp: Date.now() + (60 * 1000) //Valida por treinta segundo
+        exp: Date.now() + (300 * 1000) //Valida por treinta segundo
 
     };
 
@@ -21,6 +21,7 @@ async function getjwtToken(req, res){
 }
 
 async function verifyToken(req,res,next){
+  
     const authHeader = req.headers.authorization;
 
     if (authHeader){
